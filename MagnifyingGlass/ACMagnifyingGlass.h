@@ -11,8 +11,9 @@
 
 @property (nonatomic, strong) UIView *viewToMagnify;
 @property (nonatomic, assign) CGPoint touchPoint;
-@property (nonatomic, assign) CGPoint touchPointOffset;
+@property (nonatomic, assign) CGFloat touchPointOffset;
 @property (nonatomic, assign) CGFloat scale; 
 @property (nonatomic, assign) BOOL scaleAtTouchPoint; 
+@property (nonatomic, assign) BOOL wrapToSuperview;
 
 @end

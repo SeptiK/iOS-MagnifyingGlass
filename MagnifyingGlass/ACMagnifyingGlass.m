@@ -31,12 +31,18 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 		self.layer.borderWidth = 3;
 		self.layer.cornerRadius = frame.size.width / 2;
 		self.layer.masksToBounds = YES;
-		self.touchPointOffset = CGPointMake(0, kACMagnifyingGlassDefaultOffset);
+		self.touchPointOffset = kACMagnifyingGlassDefaultOffset;
 		self.scale = kACMagnifyingGlassDefaultScale;
 		self.viewToMagnify = nil;
 		self.scaleAtTouchPoint = YES;
+		self.wrapToSuperview = NO;
 	}
 	return self;
+}
+
+- (void)didMoveToSuperview {
+	[super didMoveToSuperview];
+	[self updateCenter];
 }
 
 - (void)setFrame:(CGRect)f {
@@ -46,7 +52,7 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 
 - (void)setTouchPoint:(CGPoint)point {
 	touchPoint = point;
-	self.center = CGPointMake(point.x + touchPointOffset.x, point.y + touchPointOffset.y);
+	[self updateCenter];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -55,6 +61,25 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 	CGContextScaleCTM(context, scale, scale);
 	CGContextTranslateCTM(context, -touchPoint.x, -touchPoint.y + (self.scaleAtTouchPoint? 0 : self.bounds.size.height/2));
 	[self.viewToMagnify.layer renderInContext:context];
+}
+
+#pragma mark - Helper methods
+
+- (void)updateCenter {
+	CGPoint point = self.touchPoint;
+	CGRect boundingBox = self.superview.bounds;
+	CGFloat hitRadius = CGRectGetWidth(self.bounds) / 4;
+
+	// try to show ourselves fully
+	self.center = CGPointMake(point.x, point.y + self.touchPointOffset);
+	if (self.superview && self.wrapToSuperview) {
+		if (!CGRectContainsRect(boundingBox, CGRectInset(self.frame, hitRadius, hitRadius)))
+			self.center = CGPointMake(point.x - self.touchPointOffset, point.y);
+		if (!CGRectContainsRect(boundingBox, CGRectInset(self.frame, hitRadius, hitRadius)))
+			self.center = CGPointMake(point.x + self.touchPointOffset, point.y);
+		if (!CGRectContainsRect(boundingBox, CGRectInset(self.frame, hitRadius, hitRadius)))
+			self.center = CGPointMake(point.x, point.y - self.touchPointOffset);
+	}
 }
 
 @end

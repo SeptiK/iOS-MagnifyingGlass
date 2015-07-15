@@ -38,22 +38,51 @@ static CGFloat const kACMagnifyingViewDefaultShowDelay = 0.5;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [touches anyObject];
-	self.touchTimer = [NSTimer scheduledTimerWithTimeInterval:magnifyingGlassShowDelay
-													   target:self
-													 selector:@selector(addMagnifyingGlassTimer:)
-													 userInfo:[NSValue valueWithCGPoint:[touch locationInView:self]]
-													  repeats:NO];
+
+	// ask if we should handle touch
+	BOOL handle = YES;
+	if (self.delegate && [self.delegate respondsToSelector: @selector(magnifyGlassShouldStartTouch:)])
+		handle = [self.delegate magnifyGlassShouldStartTouch: touch];
+
+	// handle touch
+	if (handle) {
+		self.touchTimer = [NSTimer scheduledTimerWithTimeInterval:magnifyingGlassShowDelay
+														   target:self
+														 selector:@selector(addMagnifyingGlassTimer:)
+														 userInfo:[NSValue valueWithCGPoint:[touch locationInView:self]]
+														  repeats:NO];
+
+		// notify delegate
+		if (self.delegate && [self.delegate respondsToSelector: @selector(magnifyGlassTouchStarted:)])
+			[self.delegate magnifyGlassTouchStarted: touch];
+	}
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	UITouch *touch = [touches anyObject];
-	[self updateMagnifyingGlassAtPoint:[touch locationInView:self]];
+	if (magnifyingGlass.superview) {
+		UITouch *touch = touches.anyObject;
+		[self updateMagnifyingGlassAtPoint: [touch locationInView: self]];
+
+		// notify delegate
+		if (self.delegate && [self.delegate respondsToSelector: @selector(magnifyGlassMovedWithTouch:)])
+			[self.delegate magnifyGlassMovedWithTouch: touch];
+	}
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self.touchTimer invalidate];
-	self.touchTimer = nil;
-	[self removeMagnifyingGlass];
+	if (magnifyingGlass.superview) {
+		[self.touchTimer invalidate];
+		self.touchTimer = nil;
+		[self removeMagnifyingGlass];
+
+		// notify delegate
+		if (self.delegate && [self.delegate respondsToSelector: @selector(magnifyGlassTouchEnded:)])
+			[self.delegate magnifyGlassTouchEnded: touches.anyObject];
+	}
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	[self touchesEnded: touches withEvent: event];
 }
 
 #pragma mark - private functions
@@ -90,4 +119,5 @@ static CGFloat const kACMagnifyingViewDefaultShowDelay = 0.5;
 	magnifyingGlass.touchPoint = point;
 	[magnifyingGlass setNeedsDisplay];
 }
+
 @end

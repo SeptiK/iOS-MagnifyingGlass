@@ -10,9 +10,21 @@
 
 @class ACMagnifyingGlass;
 
+@protocol ACMaginfyingViewProtocol <NSObject>
+
+- (BOOL)magnifyGlassShouldStartTouch:(UITouch *)touch;
+
+@optional
+- (void)magnifyGlassTouchStarted:(UITouch *)touch;
+- (void)magnifyGlassMovedWithTouch:(UITouch *)touch;
+- (void)magnifyGlassTouchEnded:(UITouch *)touch;;
+
+@end
+
 @interface ACMagnifyingView : UIView
 
 @property (nonatomic, strong) ACMagnifyingGlass *magnifyingGlass;
 @property (nonatomic, assign) CGFloat magnifyingGlassShowDelay;
+@property (nonatomic, weak) id<ACMaginfyingViewProtocol> delegate;
 
 @end

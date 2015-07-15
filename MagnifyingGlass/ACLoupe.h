@@ -10,4 +10,6 @@
 
 @interface ACLoupe : ACMagnifyingGlass
 
+@property (nonatomic, strong) UIImageView *loupeImageView;
+
 @end

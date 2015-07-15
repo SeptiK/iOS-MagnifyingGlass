@@ -13,7 +13,7 @@
 static CGFloat const kACMagnifyingViewDefaultShowDelay = 0.5;
 
 @interface ACMagnifyingView ()
-@property (nonatomic, retain) NSTimer *touchTimer;
+@property (nonatomic, strong) NSTimer *touchTimer;
 - (void)addMagnifyingGlassAtPoint:(CGPoint)point;
 - (void)removeMagnifyingGlass;
 - (void)updateMagnifyingGlassAtPoint:(CGPoint)point;

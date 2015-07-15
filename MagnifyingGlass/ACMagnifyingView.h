@@ -12,7 +12,7 @@
 
 @interface ACMagnifyingView : UIView
 
-@property (nonatomic, retain) ACMagnifyingGlass *magnifyingGlass;
+@property (nonatomic, strong) ACMagnifyingGlass *magnifyingGlass;
 @property (nonatomic, assign) CGFloat magnifyingGlassShowDelay;
 
 @end

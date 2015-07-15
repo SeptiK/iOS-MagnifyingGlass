@@ -29,7 +29,7 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 		
 		self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
 		self.layer.borderWidth = 3;
-		self.layer.cornerRadius = frame.size.width / 2;
+		self.layer.cornerRadius = CGRectGetWidth(frame) / 2;
 		self.layer.masksToBounds = YES;
 		self.touchPointOffset = kACMagnifyingGlassDefaultOffset;
 		self.scale = kACMagnifyingGlassDefaultScale;
@@ -47,7 +47,7 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 
 - (void)setFrame:(CGRect)f {
 	super.frame = f;
-	self.layer.cornerRadius = f.size.width / 2;
+	self.layer.cornerRadius = CGRectGetWidth(f) / 2;
 }
 
 - (void)setTouchPoint:(CGPoint)point {
@@ -57,9 +57,9 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 
 - (void)drawRect:(CGRect)rect {
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	CGContextTranslateCTM(context, self.frame.size.width/2, self.frame.size.height/2 );
+	CGContextTranslateCTM(context, CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2 );
 	CGContextScaleCTM(context, scale, scale);
-	CGContextTranslateCTM(context, -touchPoint.x, -touchPoint.y + (self.scaleAtTouchPoint? 0 : self.bounds.size.height/2));
+	CGContextTranslateCTM(context, -touchPoint.x, -touchPoint.y + (self.scaleAtTouchPoint? 0 : CGRectGetHeight(self.bounds)/2));
 	[self.viewToMagnify.layer renderInContext:context];
 }
 

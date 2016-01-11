@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.summary  = 'A magnifying glass for iOS.'
   s.homepage = 'https://github.com/acoomans/iOS-MagnifyingGlass'
   s.author   = { 'Arnaud Coomans' => 'arnaud.coomans@gmail.com' }
-  s.source   = { :git => 'https://github.com/acoomans/iOS-MagnifyingGlass.git', :tag => '0.0.3' }
+  s.source   = { :git => 'https://github.com/djbe/iOS-MagnifyingGlass.git', :tag => '0.0.3' }
   s.source_files = 'MagnifyingGlass/*.{h,m}'
   s.resources    = 'MagnifyingGlass/Resources/*.png'
   s.requires_arc = true

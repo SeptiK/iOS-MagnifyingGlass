@@ -17,7 +17,7 @@
 @optional
 - (void)magnifyGlassTouchStarted:(UITouch *)touch;
 - (void)magnifyGlassMovedWithTouch:(UITouch *)touch;
-- (void)magnifyGlassTouchEnded:(UITouch *)touch;;
+- (void)magnifyGlassTouchEnded:(UITouch *)touch;
 
 @end
 

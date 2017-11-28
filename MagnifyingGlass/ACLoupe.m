@@ -34,6 +34,7 @@ static CGFloat const kACLoupeDefaultRadius = 64;
         }
 
 		self.loupeImageView.backgroundColor = [UIColor clearColor];
+        self.loupeImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self addSubview:self.loupeImageView];
 	}
 	return self;

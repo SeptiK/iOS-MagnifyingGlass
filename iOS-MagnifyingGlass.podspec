@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.author   = { 'Arnaud Coomans' => 'arnaud.coomans@gmail.com' }
   s.source   = { :git => 'https://github.com/Skogetroll/iOS-MagnifyingGlass.git', :tag => '0.0.3' }
   s.source_files = 'MagnifyingGlass/*.{h,m}'
-  s.resources    = 'MagnifyingGlass/Resources/*.png'
+  s.resources    = 'MagnifyingGlass/Resources/Loupe.xcassets'
   s.resource_bundles = { 'Loupe' => 'MagnifyingGlass/Resources/Loupe.xcassets' } 
   s.requires_arc = true
 end

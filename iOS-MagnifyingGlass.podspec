@@ -9,6 +9,6 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/djbe/iOS-MagnifyingGlass.git', :tag => '0.0.3' }
   s.source_files = 'MagnifyingGlass/*.{h,m}'
   s.resources    = 'MagnifyingGlass/Resources/*.png'
-  s.resource_bundles = { s.name => ['MagnifyingGlass/Resources/*.xcassets'] } 
+  s.resource_bundles = { 'Loupe' => 'MagnifyingGlass/Resources/Loupe.xcassets' } 
   s.requires_arc = true
 end

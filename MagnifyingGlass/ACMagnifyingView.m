@@ -37,6 +37,8 @@ static CGFloat const kACMagnifyingViewDefaultShowDelay = 0.5;
 #pragma mark - touch events
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (self.delegate && [self.delegate magnifyGlassShouldStartTouch] == NO) { return; }
+    
     if ([touches count] == 1) {
         UITouch *touch = [touches anyObject];
         self.touchTimer = [NSTimer scheduledTimerWithTimeInterval:magnifyingGlassShowDelay
@@ -48,6 +50,8 @@ static CGFloat const kACMagnifyingViewDefaultShowDelay = 0.5;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (self.delegate && [self.delegate magnifyGlassShouldStartTouch] == NO) { return; }
+    
     if ([touches count] == 1) {
         UITouch *touch = [touches anyObject];
         [self updateMagnifyingGlassAtPoint:[touch locationInView:self]];

@@ -12,7 +12,7 @@
 
 @protocol ACMagnifyingViewProtocol <NSObject>
 
-- (BOOL)magnifyGlassShouldStartTouch:(UITouch *)touch;
+- (BOOL)magnifyGlassShouldStartTouch;
 
 @optional
 - (void)magnifyGlassTouchStarted:(UITouch *)touch;

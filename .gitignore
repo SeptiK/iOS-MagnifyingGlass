@@ -37,3 +37,5 @@ Pods/
 
 .DS_Store
 *.swp
+
+MagnifyingGlassDemo\.xcodeproj/project\.xcworkspace/xcshareddata/IDEWorkspaceChecks\.plist

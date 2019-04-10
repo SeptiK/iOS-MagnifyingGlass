@@ -7,7 +7,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-static CGFloat const kACMagnifyingGlassDefaultRadius = 40;
+static CGFloat const kACMagnifyingGlassDefaultRadius = 55;
 static CGFloat const kACMagnifyingGlassDefaultOffset = -40;
 static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 

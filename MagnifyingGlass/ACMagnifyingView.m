@@ -84,9 +84,16 @@ static CGFloat const kACMagnifyingViewDefaultShowDelay = 0.5;
 		magnifyingGlass.viewToMagnify = self;
 		
 	}
-	
+    magnifyingGlass.isFixed = self.isFixed;
 	magnifyingGlass.touchPoint = point;
-	[self.superview addSubview:magnifyingGlass];
+    
+    if (self.isFixed) {
+        UIWindow* window = [[[UIApplication sharedApplication] windows] firstObject];
+        [window addSubview:magnifyingGlass];
+    } else {
+        [self.superview addSubview:magnifyingGlass];
+    }
+    
 	[magnifyingGlass setNeedsDisplay];
 }
 

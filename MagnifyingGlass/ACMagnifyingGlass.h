@@ -15,5 +15,6 @@
 @property (nonatomic, assign) CGFloat scale; 
 @property (nonatomic, assign) BOOL scaleAtTouchPoint; 
 @property (nonatomic, assign) BOOL wrapToSuperview;
+@property (nonatomic, assign) BOOL isFixed;
 
 @end

@@ -16,7 +16,7 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 
 @implementation ACMagnifyingGlass
 
-@synthesize viewToMagnify, touchPoint, touchPointOffset, scale, scaleAtTouchPoint;
+@synthesize viewToMagnify, touchPoint, touchPointOffset, scale, scaleAtTouchPoint, isFixed;
 
 - (id)init {
     self = [self initWithFrame:CGRectMake(0, 0, kACMagnifyingGlassDefaultRadius*2, kACMagnifyingGlassDefaultRadius*2)];
@@ -69,7 +69,13 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 	CGPoint point = self.touchPoint;
 	CGRect boundingBox = self.superview.bounds;
 	CGFloat hitRadius = CGRectGetWidth(self.bounds) / 4;
-
+    
+    if (self.isFixed) {
+        CGPoint fixedPoint = CGPointMake(self.viewToMagnify.bounds.size.width / 2, 0);
+        self.center = [self.viewToMagnify convertPoint:fixedPoint toView:self.superview];
+        return;
+    }
+    
 	// try to show ourselves fully
 	self.center = CGPointMake(point.x, point.y + self.touchPointOffset);
 	if (self.superview && self.wrapToSuperview) {
@@ -80,6 +86,7 @@ static CGFloat const kACMagnifyingGlassDefaultScale = 1.5;
 		if (!CGRectContainsRect(boundingBox, CGRectInset(self.frame, hitRadius, hitRadius)))
 			self.center = CGPointMake(point.x, point.y - self.touchPointOffset);
 	}
+    
 }
 
 @end

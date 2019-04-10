@@ -26,5 +26,6 @@
 @property (nonatomic, strong) ACMagnifyingGlass *magnifyingGlass;
 @property (nonatomic, assign) CGFloat magnifyingGlassShowDelay;
 @property (nonatomic, weak) id<ACMagnifyingViewProtocol> delegate;
+@property (nonatomic, assign) BOOL isFixed;
 
 @end
